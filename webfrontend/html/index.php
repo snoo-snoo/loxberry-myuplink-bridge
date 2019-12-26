@@ -20,6 +20,7 @@ $REDIRECT_URL = $cfg['Section']['redirect_url']; // the URL on your raspberryPi 
 $nibeAPI = new NibeAPI($CLIENT_ID, $CLIENT_SECRET, $REDIRECT_URL);
 $nibeGateway = new NibeGateway($nibeAPI);
 
+
 if ($nibeAPI->debugActive)
 {
 	file_put_contents('/tmp/nibe.log', '['.date("c").'] '.$_SERVER['REQUEST_URI']."\n", FILE_APPEND);
@@ -29,7 +30,6 @@ if (empty($_GET)) {
     // The Navigation Bar
 	$navbar[1]['Name'] = "Einstellungen";
 	$navbar[1]['URL'] = 'config.cgi';
-	
 	$navbar[2]['Name'] = "Nibe API";
 	$navbar[2]['URL'] = 'index.php';
 	$navbar[2]['active'] = True;
