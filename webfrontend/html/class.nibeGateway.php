@@ -8,9 +8,9 @@ class NibeGateway {
 	{
 		$this->nibeAPI = $nibeAPI;
 	}
-
+	
 	function main()
-	{
+	{	
 		// handle API callback if needed
 		if (isset($_GET["state"]) && $_GET["state"] == "authorization")
 		{
@@ -38,11 +38,6 @@ class NibeGateway {
 			die();
 		}
 
-		else if (isset($_GET["status"]))
-		{
-			echo ($this->nibeAPI->checkToken() === false) ? "0" : "1";
-		}
-
 		else if (isset($_GET["mode"]))
 		{
 			// always check token first
@@ -55,7 +50,7 @@ class NibeGateway {
 				echo "<a href=\"$URL\">" . (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . explode("?",$_SERVER['REQUEST_URI'])[0] . "</a>";
 				die();
 			}
-
+			
 			// defaults
 			$success = false;
 			$response = "Invalid mode request";
@@ -67,13 +62,13 @@ class NibeGateway {
 					$functionURI=$_GET["exec"];
 					$response = $this->nibeAPI->readAPI($functionURI, $token, $success);
 				}
-
+				
 				elseif (isset($_GET["get"]))
 				{
 					$functionURI=$_GET["get"];
 					$response = $this->nibeAPI->readAPI($functionURI, $token, $success);
 				}
-
+				
 				elseif (isset($_GET["put"]) && isset($_GET["data"]))
 				{
 					$functionURI=$_GET["put"];
@@ -106,7 +101,7 @@ class NibeGateway {
 					die();
 				}
 				$systemId =  urlencode($_GET["systemId"]);
-
+			
 				if (isset($_GET["smartHomeMode"])) // DEFAULT_OPERATION , AWAY_FROM_HOME , VACATION
 				{
 					$postBody="{\n  \"mode\": \"" . urlencode($_GET["smartHomeMode"]) . "\"\n}";
@@ -116,13 +111,13 @@ class NibeGateway {
 						header("HTTP/1.0 204 No Content");
 					}
 				}
-
+				
 				elseif (isset($_GET["hotWaterBoost"])) // DEFAULT_OPERATION , AWAY_FROM_HOME , VACATION
 				{
 					$postBody="{\n  \"settings\": {\n    \"hot_water_boost\": " . urlencode($_GET["hotWaterBoost"]) . "\n  }\n}";
 					$response = $this->nibeAPI->putAPI("systems/" . $systemId . "/parameters", $postBody, $token, $success);
 				}
-
+				
 				elseif (isset($_GET["thermostat"]))
 				{
 					if (!isset($_GET["actualTemp"]) && !isset($_GET["targetTemp"]))
@@ -133,20 +128,20 @@ class NibeGateway {
 					}
 
 					$postBody="{\n";
-
+					
 					if (isset($_GET["externalId"])) { $postBody.="  \"externalId\": " . urlencode($_GET["externalId"]) . ",\n"; }
 					else { $postBody.="  \"externalId\": 0,\n"; }
-
+					
 					$postBody.="  \"name\": \"" . urlencode($_GET["thermostat"]) . "\",\n";
-
+					
 					if (isset($_GET["actualTemp"])) { $postBody.="  \"actualTemp\": " . urlencode($_GET["actualTemp"]) . ",\n"; }
 
 					if (isset($_GET["targetTemp"])) { $postBody.="  \"targetTemp\": " . urlencode($_GET["targetTemp"]) . ",\n"; }
 
 					if (isset($_GET["climateSystems"])) { $postBody.="  \"climateSystems\": [\n    " . urlencode($_GET["climateSystems"]) . "\n  ]\n}"; }
 					else { $postBody.="  \"climateSystems\": [\n    1\n  ]\n}"; }
-
-
+					
+					
 					$response = $this->nibeAPI->postAPI("systems/" . $systemId . "/smarthome/thermostats", $postBody, $token, $success);
 					if ($success)
 					{
@@ -154,7 +149,7 @@ class NibeGateway {
 					}
 				}
 			}
-
+			
 			if (!$success)
 			{
 				header("HTTP/1.0 400 Bad Request");
@@ -177,12 +172,12 @@ class NibeGateway {
 	}
 
 	function displayStatusPage()
-	{
+	{	
 		$token = $this->nibeAPI->checkToken();
 		if ($token === false)
 		{
 			$URL = $this->nibeAPI->authorizationURL();
-
+		
 			echo "You're not authorized yet.<br /><br />\n";
 			echo "<b>Important:</b> If you haven't done that yet, create an application on <a href=\"https://api.nibeuplink.com\">https://api.nibeuplink.com</a> first and update the config section in the index.php (this file).<br ><br />\n";
 			echo "If you think you're ready to connect this bridge to the Nibe API, click <a href=\"$URL\">here</a>.";
