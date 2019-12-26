@@ -15,12 +15,12 @@ class NibeAPI {
 		$this->scopes = $scopes;
 		$this->debugActive = $debugActive;
 	}
-	
+
 	function authorizationURL()
 	{
 		return "https://api.nibeuplink.com/oauth/authorize?response_type=code&client_id=" . $this->clientID . "&scope=" . $this->scopes . "&redirect_uri=" . $this->redirectURL . "&state=authorization";
 	}
-    
+
 	function authorize($CODE, $isRefresh = false)
 	{
 		$ch = curl_init();
@@ -65,7 +65,7 @@ class NibeAPI {
 						echo 'Could not decode json response: ' . $response . '\n';
 					}
 				break;
-			
+
 				default:
 					echo 'Unerwarter HTTP-Code: ' . $http_code . "\n";
 			}
@@ -102,7 +102,7 @@ class NibeAPI {
 					$data = json_decode($response);
 					if ($data !== false) $success = true;
 				break;
-			
+
 				default:
 					$data = "Unerwarter HTTP-Code: " . $http_code . "<br />\nResponse:<br />\n" . $response;
 			}
@@ -111,21 +111,21 @@ class NibeAPI {
 		curl_close ($ch);
 		return $data;
 	}
-	
+
 	function postAPI($URI, $postBody, $token, &$success = 'undefined')
 	{
 		return $this->postPutAPI($URI, "POST", $postBody, $token, $success);
 	}
-	
+
 	function putAPI($URI, $postBody, $token, &$success = 'undefined')
 	{
 		return $this->postPutAPI($URI, "PUT", $postBody, $token, $success);
 	}
-	
+
 	function postPutAPI($URI, $method, $postBody, $token, &$success = 'undefined')
 	{
 		$curl = curl_init();
-		
+
 		curl_setopt_array($curl, array(
 		  CURLOPT_URL => "https://api.nibeuplink.com/api/v1/" . $URI,
 		  CURLOPT_RETURNTRANSFER => true,
@@ -153,12 +153,12 @@ class NibeAPI {
 					$data = json_decode($response);
 					if ($data !== false) $success = true;
 				break;
-				
+
 				case 204:
 					$success = true;
 					$data = "Success";
 				break;
-			
+
 				default:
 					$data = "Unerwarter HTTP-Code: " . $http_code . "<br />\nResponse:<br />\n" . $response;
 			}
@@ -181,12 +181,12 @@ class NibeAPI {
 
 	function load_token()
 	{
-		$token = file_get_contents("token");
+		$token = @file_get_contents("token");
 		if ($token === false)
 		{
 			return false;
 		}
-	
+
 		return @unserialize($token);
 	}
 
@@ -219,7 +219,7 @@ class NibeAPI {
 		{
 			return false;
 		}
-	
+
 		if ($this->token_needs_update($token))
 		{
 			if ($this->debugActive) echo "Token needs update. Working on it...<br />\n";
