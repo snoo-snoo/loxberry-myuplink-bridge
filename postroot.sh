@@ -4,7 +4,7 @@
 # (*AFTER* postinstall but *BEFORE* postupdate). Use with caution and remember,
 # that all systems may be different!
 #
-# Exit code must be 0 if executed successfull. 
+# Exit code must be 0 if executed successfull.
 # Exit code 1 gives a warning but continues installation.
 # Exit code 2 cancels installation.
 #
@@ -39,7 +39,8 @@ PVERSION=$4   # Forth argument is Plugin version
 PCGI=$LBPCGI/$PDIR
 PHTML=$LBPHTML/$PDIR
 #PHTMLAUTH=$LBPHTMLAUTH/$PDIR
-PHTMLAUTH=/opt/loxberry/webfrontend/htmlauth/plugins/$PDIR
+#PHTMLAUTH=/opt/loxberry/webfrontend/htmlauth/plugins/$PDIR
+PHTMLAUTH=$lbhomedir/webfrontend/htmlauth/plugins/$PDIR
 
 PTEMPL=$LBPTEMPL/$PDIR
 PDATA=$LBPDATA/$PDIR
