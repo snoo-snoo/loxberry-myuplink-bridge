@@ -2,11 +2,11 @@
 
 # Bash script which is executed in case of an update (if this plugin is already
 # installed on the system). This script is executed as very first step (*BEFORE*
-# preinstall.sh) and can be used e.g. to save existing configfiles to /tmp 
+# preinstall.sh) and can be used e.g. to save existing configfiles to /tmp
 # during installation. Use with caution and remember, that all systems may be
 # different!
 #
-# Exit code must be 0 if executed successfull. 
+# Exit code must be 0 if executed successfull.
 # Exit code 1 gives a warning but continues installation.
 # Exit code 2 cancels installation.
 #
@@ -54,6 +54,8 @@ ARGV3=$3 # Third argument is Plugin installation folder
 ARGV5=$5 # Fifth argument is Base folder of LoxBerry
 # echo "<INFO> Base folder is: $ARGV5"
 
+echo "<INFO> Stopping Communication Status Control Nibe Uplink service"
+pkill checkAuth.pl
 
 echo "<INFO> Creating temporary folders for upgrading"
 mkdir /tmp/$ARGV1\_upgrade
