@@ -1,6 +1,7 @@
 <?php
 require_once "loxberry_web.php";
 require_once "Config/Lite.php";
+require_once "loxberry_log.php";
 
 require_once('class.nibeAPI.php');
 require_once('class.nibeGateway.php');
@@ -40,6 +41,8 @@ if (empty($_GET)) {
 	$helplink = "http://www.loxwiki.eu:80/x/2wzL";
 	$helptemplate = "help.html";
 	LBWeb::lbheader($template_title, $helplink, $helptemplate);
+	$notify = LBLog::get_notifications_html( LBPPLUGINDIR, null, "error");
+	echo $notify;
 }
 
 $nibeGateway->main();
