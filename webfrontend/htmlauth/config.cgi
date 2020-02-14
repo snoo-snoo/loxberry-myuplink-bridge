@@ -14,7 +14,7 @@ our %navbar;
 $navbar{1}{Name} = "Einstellungen";
 $navbar{1}{URL} = 'config.cgi';
 $navbar{1}{active} = 1;
- 
+
 $navbar{2}{Name} = "Nibe API";
 $navbar{2}{URL} = 'index.cgi';
 
@@ -23,6 +23,7 @@ $navbar{2}{URL} = 'index.cgi';
 my $version = LoxBerry::System::pluginversion();
 my $plugintitle = "Nibe Uplink Bridge";
 LoxBerry::Web::lbheader("$plugintitle V$version", "http://www.loxwiki.eu/display/LOXBERRY/Any+Plugin", "help.html");
+
 
 #Load Template and fill with given parameters
 my $template = HTML::Template->new(filename => "$lbptemplatedir/config.html");
