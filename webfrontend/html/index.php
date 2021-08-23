@@ -14,8 +14,8 @@ error_reporting(E_ALL);
 //==========
 $cfg = new Config_Lite("$lbpconfigdir/myuplink.cfg");
 
-$CLIENT_ID = $cfg['Section']['myuplink_api_client_id']; // myuplinkUplink API Application Identifier
-$CLIENT_SECRET = $cfg['Section']['myuplink_api_client_secret']; // myuplinkUplink API Application Secret
+$CLIENT_ID = $cfg['Section']['myuplink_api_client_id']; // MyUplink API Application Identifier
+$CLIENT_SECRET = $cfg['Section']['myuplink_api_client_secret']; // MyUplink API Application Secret
 $REDIRECT_URL = $cfg['Section']['redirect_url']; // the URL on your raspberryPi to the folder containing this script (this can and should only be accessible from your LAN for security reasons!)
 
 $myuplinkAPI = new myuplinkAPI($CLIENT_ID, $CLIENT_SECRET, $REDIRECT_URL);
@@ -37,7 +37,7 @@ if (empty($_GET)) {
 
 	// This will read your language files to the array $L
 	$L = LBSystem::readlanguage("language.txt");
-	$template_title = "myuplinkUplink Bridge";
+	$template_title = "MyUplink Bridge";
 	$helplink = "http://www.loxwiki.eu:80/x/2wzL";
 	$helptemplate = "help.html";
 	LBWeb::lbheader($template_title, $helplink, $helptemplate);

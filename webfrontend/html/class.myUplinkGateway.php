@@ -212,7 +212,7 @@ class MyUplinkGateway {
 			</p>
 		</form></div>
 		<div>
-		<a href="https://api.myuplinkuplink.com/docs/v1/Functions">myuplinkUplink API Documentation</a><br />
+		<a href="https://api.myuplinkuplink.com/docs/v1/Functions">MyUplink API Documentation</a><br />
 		</div>
 		<?php
 	}
