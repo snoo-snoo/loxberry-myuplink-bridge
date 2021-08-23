@@ -1,9 +1,9 @@
 <?php
-class myuplinkGateway {
-	var $myuplinkAPI;
-	function __construct($myuplinkAPI)
+class MyUplinkGateway {
+	var $MyUplinkAPI;
+	function __construct($MyUplinkAPI)
 	{
-		$this->myuplinkAPI = $myuplinkAPI;
+		$this->MyUplinkAPI = $MyUplinkAPI;
 	}
 
 	function main()
@@ -17,16 +17,16 @@ class myuplinkGateway {
 				die();
 			}
 			$CODE = $_GET["code"];
-			$token = $this->myuplinkAPI->authorize($CODE);
+			$token = $this->MyUplinkAPI->authorize($CODE);
 			header("refresh:5;url=" . $_SERVER['PHP_SELF']);
 			if ($token === false)
 			{
-				$this->myuplinkAPI->clear_token();
+				$this->MyUplinkAPI->clear_token();
 				echo "Failed to authorize! Redirecting to <a href=\"" . $_SERVER['PHP_SELF']  . "\">status page</a> ...";
 			}
 			else
 			{
-				$this->myuplinkAPI->save_token($token);
+				$this->MyUplinkAPI->save_token($token);
 				echo "Successfully authorized! Redirecting to <a href=\"" . $_SERVER['PHP_SELF']  . "\">status page</a> ...";
 			}
 			die();
@@ -34,12 +34,12 @@ class myuplinkGateway {
 
 		else if (isset($_GET["status"]))
 		{
-			echo ($this->myuplinkAPI->checkToken() === false) ? "0" : "1";
+			echo ($this->MyUplinkAPI->checkToken() === false) ? "0" : "1";
 		}
 		else if (isset($_GET["mode"]))
 		{
 			// always check token first
-			$token = $this->myuplinkAPI->checkToken();
+			$token = $this->MyUplinkAPI->checkToken();
 			if ($token === false)
 			{
 				header("HTTP/1.0 401 Unauthorized");
@@ -57,20 +57,20 @@ class myuplinkGateway {
 				if (isset($_GET["exec"]))
 				{
 					$functionURI=$_GET["exec"];
-					$response = $this->myuplinkAPI->readAPI($functionURI, $token, $success);
+					$response = $this->MyUplinkAPI->readAPI($functionURI, $token, $success);
 				}
 
 				elseif (isset($_GET["get"]))
 				{
 					$functionURI=$_GET["get"];
-					$response = $this->myuplinkAPI->readAPI($functionURI, $token, $success);
+					$response = $this->MyUplinkAPI->readAPI($functionURI, $token, $success);
 				}
 
 				elseif (isset($_GET["put"]) && isset($_GET["data"]))
 				{
 					$functionURI=$_GET["put"];
 					$postBody=$_GET["data"]; // ex: "{\n  \"mode\": \"DEFAULT_OPERATION\"\n}"
-					$response = $this->myuplinkAPI->putAPI($functionURI, $postBody, $token, $success);
+					$response = $this->MyUplinkAPI->putAPI($functionURI, $postBody, $token, $success);
 					if ($success)
 					{
 						header("HTTP/1.0 204 No Content");
@@ -80,7 +80,7 @@ class myuplinkGateway {
 				{
 					$functionURI=$_GET["post"];
 					$postBody=$_GET["data"]; // ex: "{\n  \"mode\": \"DEFAULT_OPERATION\"\n}"
-					$response = $this->myuplinkAPI->postAPI($functionURI, $postBody, $token, $success);
+					$response = $this->MyUplinkAPI->postAPI($functionURI, $postBody, $token, $success);
 					if ($success)
 					{
 						header("HTTP/1.0 204 No Content");
@@ -100,7 +100,7 @@ class myuplinkGateway {
 				if (isset($_GET["smartHomeMode"])) // DEFAULT_OPERATION , AWAY_FROM_HOME , VACATION
 				{
 					$postBody="{\n  \"mode\": \"" . urlencode($_GET["smartHomeMode"]) . "\"\n}";
-					$response = $this->myuplinkAPI->putAPI("systems/" . $systemId . "/smarthome/mode", $postBody, $token, $success);
+					$response = $this->MyUplinkAPI->putAPI("systems/" . $systemId . "/smarthome/mode", $postBody, $token, $success);
 					if ($success)
 					{
 						header("HTTP/1.0 204 No Content");
@@ -110,7 +110,7 @@ class myuplinkGateway {
 				elseif (isset($_GET["hotWaterBoost"])) // DEFAULT_OPERATION , AWAY_FROM_HOME , VACATION
 				{
 					$postBody="{\n  \"settings\": {\n    \"hot_water_boost\": " . urlencode($_GET["hotWaterBoost"]) . "\n  }\n}";
-					$response = $this->myuplinkAPI->putAPI("systems/" . $systemId . "/parameters", $postBody, $token, $success);
+					$response = $this->MyUplinkAPI->putAPI("systems/" . $systemId . "/parameters", $postBody, $token, $success);
 				}
 
 				elseif (isset($_GET["thermostat"]))
@@ -134,7 +134,7 @@ class myuplinkGateway {
 					else { $postBody.="  \"climateSystems\": [\n    1\n  ]\n}"; }
 
 
-					$response = $this->myuplinkAPI->postAPI("systems/" . $systemId . "/smarthome/thermostats", $postBody, $token, $success);
+					$response = $this->MyUplinkAPI->postAPI("systems/" . $systemId . "/smarthome/thermostats", $postBody, $token, $success);
 					if ($success)
 					{
 						header("HTTP/1.0 204 No Content");
@@ -161,14 +161,14 @@ class myuplinkGateway {
 	}
 	function displayStatusPage()
 	{
-		$token = $this->myuplinkAPI->checkToken();
+		$token = $this->MyUplinkAPI->checkToken();
 		if ($token === false)
 		{
-			$URL = $this->myuplinkAPI->authorizationURL();
+			$URL = $this->MyUplinkAPI->authorizationURL();
 
 			echo "You're not authorized yet.<br /><br />\n";
 			echo "<b>Important:</b> If you haven't done that yet, create an application on <a href=\"https://api.myuplink.com/v2/\">https://api.myuplink.com/v2/</a> first and update the config section in the index.php (this file).<br ><br />\n";
-			echo "If you think you're ready to connect this bridge to the myuplinkAPI, click <a href=\"$URL\">here</a>.";
+			echo "If you think you're ready to connect this bridge to the MyUplinkAPI, click <a href=\"$URL\">here</a>.";
 			die();
 		}
 		if (isset($_GET["autoUpdate"]) && $_GET["autoUpdate"] == "true")
@@ -184,11 +184,11 @@ class myuplinkGateway {
 		echo "Current status: authorized<br /><br />\n";
 		echo "Access-Token:<br />" . $token->access_token . "<br /><br />\n";
 		echo "Current Time: " . time() . "<br />\n";
-		echo "Last update: " . $this->myuplinkAPI->last_token_update() . "<br />\n";
+		echo "Last update: " . $this->MyUplinkAPI->last_token_update() . "<br />\n";
 		echo "Token expire time: " . $token->expires_in . "<br />\n";
-		echo "Remaining seconds: " . ($token->expires_in - (time() - $this->myuplinkAPI->last_token_update()) . "<br /><br />\n");
+		echo "Remaining seconds: " . ($token->expires_in - (time() - $this->MyUplinkAPI->last_token_update()) . "<br /><br />\n");
 		echo "<h2>Status response</h2>";
-		$response = $this->myuplinkAPI->readAPI("systems", $token, $success);
+		$response = $this->MyUplinkAPI->readAPI("systems", $token, $success);
 		if (!$success)
 		{
 			echo "FAILED:<br />\n";

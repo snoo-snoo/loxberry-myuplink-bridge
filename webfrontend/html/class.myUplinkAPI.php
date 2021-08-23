@@ -1,5 +1,5 @@
 <?php
-class myuplinkAPI {
+class MyUplinkAPI {
 	var $clientID;
 	var $clientSecret;
 	var $redirectURL;

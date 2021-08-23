@@ -3,14 +3,14 @@ require_once "loxberry_web.php";
 require_once "Config/Lite.php";
 require_once "loxberry_log.php";
 
-require_once('class.myuplinkAPI.php');
-require_once('class.myuplinkGateway.php');
+require_once('class.myUplinkAPI.php');
+require_once('class.myUplinkGateway.php');
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// CONFIG (set up your own application on https://api.myuplinkuplink.com to get these things)
+// CONFIG (set up your own application on https://api.myuplink.com to get these things)
 //==========
 $cfg = new Config_Lite("$lbpconfigdir/myuplink.cfg");
 
@@ -19,7 +19,7 @@ $CLIENT_SECRET = $cfg['Section']['myuplink_api_client_secret']; // myuplinkUplin
 $REDIRECT_URL = $cfg['Section']['redirect_url']; // the URL on your raspberryPi to the folder containing this script (this can and should only be accessible from your LAN for security reasons!)
 
 $myuplinkAPI = new myuplinkAPI($CLIENT_ID, $CLIENT_SECRET, $REDIRECT_URL);
-$myuplinkGateway = new myuplinkGateway($myuplinkAPI);
+$MyUplinkGateway = new MyUplinkGateway($myuplinkAPI);
 
 
 if ($myuplinkAPI->debugActive)
@@ -45,7 +45,7 @@ if (empty($_GET)) {
 	echo $notify;
 }
 
-$myuplinkGateway->main();
+$MyUplinkGateway->main();
 
 if (empty($_GET)) {
 	LBWeb::lbfooter();
