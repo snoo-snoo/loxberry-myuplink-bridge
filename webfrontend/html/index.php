@@ -3,8 +3,8 @@ require_once "loxberry_web.php";
 require_once "Config/Lite.php";
 require_once "loxberry_log.php";
 
-require_once('class.nibeAPI.php');
-require_once('class.nibeGateway.php');
+require_once('class.myUplinkAPI.php');
+require_once('class.myUplinkGateway.php');
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
