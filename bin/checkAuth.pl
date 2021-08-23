@@ -23,7 +23,7 @@ while(1){
 
 # Send a request to the index page from plugin. This page send a status request
 # to myUplink uplink.
-	my $response = $ua->get("http://localhost/plugins/myuplink/?mode=raw");
+	my $response = $ua->get("http://localhost/plugins/MyUplink/?mode=raw");
 # if response comes back with status code 200, we can go to sleep
 	if ($response->is_success) {
 			$isFaulty = 0;

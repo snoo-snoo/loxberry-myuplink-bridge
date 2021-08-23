@@ -12,7 +12,7 @@ error_reporting(E_ALL);
 
 // CONFIG (set up your own application on https://api.myUplinkuplink.com to get these things)
 //==========
-$cfg = new Config_Lite("$lbpconfigdir/myuplink.cfg");
+$cfg = new Config_Lite("$lbpconfigdir/MyUplink.cfg");
 
 $CLIENT_ID = $cfg['Section']['myuplink_api_client_id']; // MyUplinkUplink API Application Identifier
 $CLIENT_SECRET = $cfg['Section']['myuplink_api_client_secret']; // MyUplinkUplink API Application Secret

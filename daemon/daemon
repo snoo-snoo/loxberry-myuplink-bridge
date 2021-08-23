@@ -11,6 +11,6 @@ then
     /usr/bin/logger "This is just a sample DAEMON script from Sample Plugin"
 fi
 
-$LBHOMEDIR/bin/plugins/myUplinkuplink/checkAuth.pl > /dev/null 2>&1 &
+$LBHOMEDIR/bin/plugins/myUplink/checkAuth.pl > /dev/null 2>&1 &
 
 exit 0
