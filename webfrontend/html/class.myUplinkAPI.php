@@ -1,5 +1,5 @@
 <?php
-class NibeAPI {
+class MyUplinkAPI {
 	var $clientID;
 	var $clientSecret;
 	var $redirectURL;

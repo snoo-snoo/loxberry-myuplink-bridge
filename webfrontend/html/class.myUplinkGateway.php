@@ -1,9 +1,9 @@
 <?php
-class NibeGateway {
-	var $nibeAPI;
-	function __construct($nibeAPI)
+class MyUplinkGateway {
+	var $myUplinkAPI;
+	function __construct($myUplinkAPI)
 	{
-		$this->nibeAPI = $nibeAPI;
+		$this->myUplinkAPI = $myUplinkAPI;
 	}
 
 	function main()
@@ -17,16 +17,16 @@ class NibeGateway {
 				die();
 			}
 			$CODE = $_GET["code"];
-			$token = $this->nibeAPI->authorize($CODE);
+			$token = $this->myUplinkAPI->authorize($CODE);
 			header("refresh:5;url=" . $_SERVER['PHP_SELF']);
 			if ($token === false)
 			{
-				$this->nibeAPI->clear_token();
+				$this->myUplinkAPI->clear_token();
 				echo "Failed to authorize! Redirecting to <a href=\"" . $_SERVER['PHP_SELF']  . "\">status page</a> ...";
 			}
 			else
 			{
-				$this->nibeAPI->save_token($token);
+				$this->myUplinkAPI->save_token($token);
 				echo "Successfully authorized! Redirecting to <a href=\"" . $_SERVER['PHP_SELF']  . "\">status page</a> ...";
 			}
 			die();
@@ -34,12 +34,12 @@ class NibeGateway {
 
 		else if (isset($_GET["status"]))
 		{
-			echo ($this->nibeAPI->checkToken() === false) ? "0" : "1";
+			echo ($this->myUplinkAPI->checkToken() === false) ? "0" : "1";
 		}
 		else if (isset($_GET["mode"]))
 		{
 			// always check token first
-			$token = $this->nibeAPI->checkToken();
+			$token = $this->myUplinkAPI->checkToken();
 			if ($token === false)
 			{
 				header("HTTP/1.0 401 Unauthorized");
@@ -57,20 +57,20 @@ class NibeGateway {
 				if (isset($_GET["exec"]))
 				{
 					$functionURI=$_GET["exec"];
-					$response = $this->nibeAPI->readAPI($functionURI, $token, $success);
+					$response = $this->myUplinkAPI->readAPI($functionURI, $token, $success);
 				}
 
 				elseif (isset($_GET["get"]))
 				{
 					$functionURI=$_GET["get"];
-					$response = $this->nibeAPI->readAPI($functionURI, $token, $success);
+					$response = $this->myUplinkAPI->readAPI($functionURI, $token, $success);
 				}
 
 				elseif (isset($_GET["put"]) && isset($_GET["data"]))
 				{
 					$functionURI=$_GET["put"];
 					$postBody=$_GET["data"]; // ex: "{\n  \"mode\": \"DEFAULT_OPERATION\"\n}"
-					$response = $this->nibeAPI->putAPI($functionURI, $postBody, $token, $success);
+					$response = $this->myUplinkAPI->putAPI($functionURI, $postBody, $token, $success);
 					if ($success)
 					{
 						header("HTTP/1.0 204 No Content");
@@ -80,7 +80,7 @@ class NibeGateway {
 				{
 					$functionURI=$_GET["post"];
 					$postBody=$_GET["data"]; // ex: "{\n  \"mode\": \"DEFAULT_OPERATION\"\n}"
-					$response = $this->nibeAPI->postAPI($functionURI, $postBody, $token, $success);
+					$response = $this->myUplinkAPI->postAPI($functionURI, $postBody, $token, $success);
 					if ($success)
 					{
 						header("HTTP/1.0 204 No Content");
@@ -100,7 +100,7 @@ class NibeGateway {
 				if (isset($_GET["smartHomeMode"])) // DEFAULT_OPERATION , AWAY_FROM_HOME , VACATION
 				{
 					$postBody="{\n  \"mode\": \"" . urlencode($_GET["smartHomeMode"]) . "\"\n}";
-					$response = $this->nibeAPI->putAPI("systems/" . $systemId . "/smarthome/mode", $postBody, $token, $success);
+					$response = $this->myUplinkAPI->putAPI("systems/" . $systemId . "/smarthome/mode", $postBody, $token, $success);
 					if ($success)
 					{
 						header("HTTP/1.0 204 No Content");
@@ -110,7 +110,7 @@ class NibeGateway {
 				elseif (isset($_GET["hotWaterBoost"])) // DEFAULT_OPERATION , AWAY_FROM_HOME , VACATION
 				{
 					$postBody="{\n  \"settings\": {\n    \"hot_water_boost\": " . urlencode($_GET["hotWaterBoost"]) . "\n  }\n}";
-					$response = $this->nibeAPI->putAPI("systems/" . $systemId . "/parameters", $postBody, $token, $success);
+					$response = $this->myUplinkAPI->putAPI("systems/" . $systemId . "/parameters", $postBody, $token, $success);
 				}
 
 				elseif (isset($_GET["thermostat"]))
@@ -134,7 +134,7 @@ class NibeGateway {
 					else { $postBody.="  \"climateSystems\": [\n    1\n  ]\n}"; }
 
 
-					$response = $this->nibeAPI->postAPI("systems/" . $systemId . "/smarthome/thermostats", $postBody, $token, $success);
+					$response = $this->myUplinkAPI->postAPI("systems/" . $systemId . "/smarthome/thermostats", $postBody, $token, $success);
 					if ($success)
 					{
 						header("HTTP/1.0 204 No Content");
@@ -161,14 +161,14 @@ class NibeGateway {
 	}
 	function displayStatusPage()
 	{
-		$token = $this->nibeAPI->checkToken();
+		$token = $this->myUplinkAPI->checkToken();
 		if ($token === false)
 		{
-			$URL = $this->nibeAPI->authorizationURL();
+			$URL = $this->myUplinkAPI->authorizationURL();
 
 			echo "You're not authorized yet.<br /><br />\n";
 			echo "<b>Important:</b> If you haven't done that yet, create an application on <a href=\"https://api.myuplink.com/v2/\">https://api.myuplink.com/v2/</a> first and update the config section in the index.php (this file).<br ><br />\n";
-			echo "If you think you're ready to connect this bridge to the Nibe API, click <a href=\"$URL\">here</a>.";
+			echo "If you think you're ready to connect this bridge to the MyUplinkAPI, click <a href=\"$URL\">here</a>.";
 			die();
 		}
 		if (isset($_GET["autoUpdate"]) && $_GET["autoUpdate"] == "true")
@@ -184,11 +184,11 @@ class NibeGateway {
 		echo "Current status: authorized<br /><br />\n";
 		echo "Access-Token:<br />" . $token->access_token . "<br /><br />\n";
 		echo "Current Time: " . time() . "<br />\n";
-		echo "Last update: " . $this->nibeAPI->last_token_update() . "<br />\n";
+		echo "Last update: " . $this->myUplinkAPI->last_token_update() . "<br />\n";
 		echo "Token expire time: " . $token->expires_in . "<br />\n";
-		echo "Remaining seconds: " . ($token->expires_in - (time() - $this->nibeAPI->last_token_update()) . "<br /><br />\n");
+		echo "Remaining seconds: " . ($token->expires_in - (time() - $this->myUplinkAPI->last_token_update()) . "<br /><br />\n");
 		echo "<h2>Status response</h2>";
-		$response = $this->nibeAPI->readAPI("systems", $token, $success);
+		$response = $this->myUplinkAPI->readAPI("systems", $token, $success);
 		if (!$success)
 		{
 			echo "FAILED:<br />\n";
@@ -212,7 +212,7 @@ class NibeGateway {
 			</p>
 		</form></div>
 		<div>
-		<a href="https://api.nibeuplink.com/docs/v1/Functions">Nibe Uplink API Documentation</a><br />
+		<a href="https://api.myUplinkuplink.com/docs/v1/Functions">MyUplinkUplink API Documentation</a><br />
 		</div>
 		<?php
 	}

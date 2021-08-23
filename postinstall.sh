@@ -59,7 +59,7 @@ echo "<INFO> Plugin CONFIG folder is: $PCONFIG"
 echo "<INFO> Plugin SBIN folder is: $PSBIN"
 echo "<INFO> Plugin BIN folder is: $PBIN"
 
-echo "<INFO> Starting Communication Status Control Nibe Uplink service"
+echo "<INFO> Starting Communication Status Control MyUplinkUplink service"
 cd $PBIN
 $PBIN/mqttgateway.pl > /dev/null 2>&1 &
 

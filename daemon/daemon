@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##
-# Daemon to check if the authorization to the nibe cloud still valid yet
+# Daemon to check if the authorization to the myUplink cloud still valid yet
 #
 # If not a notification will be created
 ##
@@ -11,6 +11,6 @@ then
     /usr/bin/logger "This is just a sample DAEMON script from Sample Plugin"
 fi
 
-$LBHOMEDIR/bin/plugins/nibeuplink/checkAuth.pl > /dev/null 2>&1 &
+$LBHOMEDIR/bin/plugins/myUplinkuplink/checkAuth.pl > /dev/null 2>&1 &
 
 exit 0

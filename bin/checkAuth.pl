@@ -22,7 +22,7 @@ while(1){
 	sleep(900);
 
 # Send a request to the index page from plugin. This page send a status request
-# to nibe uplink.
+# to myUplink uplink.
 	my $response = $ua->get("http://localhost/plugins/myuplink/?mode=raw");
 # if response comes back with status code 200, we can go to sleep
 	if ($response->is_success) {
@@ -37,11 +37,11 @@ while(1){
 	notify( $lbpplugindir,
 					"daemon",
 					"Your attantion is needed! ".
-					"There are problems with the connection to Nibe Uplink! ".
+					"There are problems with the connection to MyUplinkUplink! ".
 					"Server message: " . $response->status_line,
 					"error");
 
-	LOGERR "There are problems with the connection to Nibe Uplink! ".
+	LOGERR "There are problems with the connection to MyUplinkUplink! ".
 					"Server message: " . $response->status_line;
 
 # after we create a notify we set the fault-flag. So we know that a notification was
