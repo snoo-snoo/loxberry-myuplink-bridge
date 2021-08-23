@@ -13,7 +13,7 @@ use LWP::Simple;
 
 my $log = LoxBerry::Log->new(name => 'checkAuth daemon',);
 
-LOGSTART("Communication Status Control myuplink");
+LOGSTART("Communication Status Control MyUplink");
 
 my $ua = LWP::UserAgent->new;
 my $isFaulty = 0;
@@ -37,11 +37,11 @@ while(1){
 	notify( $lbpplugindir,
 					"daemon",
 					"Your attantion is needed! ".
-					"There are problems with the connection to myuplinkUplink! ".
+					"There are problems with the connection to MyUplink! ".
 					"Server message: " . $response->status_line,
 					"error");
 
-	LOGERR "There are problems with the connection to myuplinkUplink! ".
+	LOGERR "There are problems with the connection to MyUplink! ".
 					"Server message: " . $response->status_line;
 
 # after we create a notify we set the fault-flag. So we know that a notification was
