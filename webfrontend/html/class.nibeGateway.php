@@ -167,7 +167,7 @@ class NibeGateway {
 			$URL = $this->nibeAPI->authorizationURL();
 
 			echo "You're not authorized yet.<br /><br />\n";
-			echo "<b>Important:</b> If you haven't done that yet, create an application on <a href=\"https://api.nibeuplink.com\">https://api.nibeuplink.com</a> first and update the config section in the index.php (this file).<br ><br />\n";
+			echo "<b>Important:</b> If you haven't done that yet, create an application on <a href=\"https://api.myuplink.com/v2/\">https://api.myuplink.com/v2/</a> first and update the config section in the index.php (this file).<br ><br />\n";
 			echo "If you think you're ready to connect this bridge to the Nibe API, click <a href=\"$URL\">here</a>.";
 			die();
 		}

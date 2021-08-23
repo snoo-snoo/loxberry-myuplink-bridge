@@ -1,2 +1,2 @@
-# LoxBerry-Plugin-Nibe-Gateway
+# LoxBerry-Plugin-MyUplink-Gateway
 

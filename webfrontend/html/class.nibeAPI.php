@@ -15,7 +15,7 @@ class NibeAPI {
 
 	function authorizationURL()
 	{
-		return "https://api.nibeuplink.com/oauth/authorize?response_type=code&client_id=" . $this->clientID . "&scope=" . $this->scopes . "&redirect_uri=" . $this->redirectURL . "&state=authorization";
+		return "https://api.myuplink.com/oauth/authorize?client_id=" . $this->clientID . "&scope=" . $this->scopes . "&redirect_uri=" . $this->redirectURL . "&state=authorization";
 	}
 
 	function authorize($CODE, $isRefresh = false)
@@ -31,7 +31,7 @@ class NibeAPI {
 			$pf = "&code=" . urlencode($CODE) . "&redirect_uri=" . $this->redirectURL . "&scope=" . urlencode($this->scopes);
 			$grant_type = "authorization_code";
 		}
-		curl_setopt($ch, CURLOPT_URL,"https://api.nibeuplink.com/oauth/token");
+		curl_setopt($ch, CURLOPT_URL,"https://api.myuplink.com/oauth/token");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=" . $grant_type . "&client_id=" . urlencode($this->clientID) . "&client_secret=" . urlencode($this->clientSecret) . $pf);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
@@ -67,7 +67,7 @@ class NibeAPI {
 	function readAPI($URI, $token, &$success = 'undefined')
 	{
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL,"https://api.nibeuplink.com/api/v1/" . $URI);
+		curl_setopt($ch, CURLOPT_URL,"https://api.myuplink.com/v2/" . $URI);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer " . $token->access_token));
 		// receive server response ...
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -110,7 +110,7 @@ class NibeAPI {
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
-		  CURLOPT_URL => "https://api.nibeuplink.com/api/v1/" . $URI,
+		  CURLOPT_URL => "https://api.myuplink.com/v2/" . $URI,
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_CUSTOMREQUEST => $method,
 		  CURLOPT_POSTFIELDS => $postBody,
