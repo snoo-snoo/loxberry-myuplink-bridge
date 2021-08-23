@@ -54,7 +54,7 @@ ARGV3=$3 # Third argument is Plugin installation folder
 ARGV5=$5 # Fifth argument is Base folder of LoxBerry
 # echo "<INFO> Base folder is: $ARGV5"
 
-echo "<INFO> Stopping Communication Status Control MyUplinkUplink service"
+echo "<INFO> Stopping Communication Status Control myuplinkUplink service"
 pkill checkAuth.pl
 
 echo "<INFO> Creating temporary folders for upgrading"

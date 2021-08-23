@@ -6,7 +6,7 @@ use LoxBerry::System;
 use LoxBerry::Web;
 use Config::Simple qw/-strict/;
 
-my $pcfg = new Config::Simple("$lbpconfigdir/myUplink.cfg");
+my $pcfg = new Config::Simple("$lbpconfigdir/myuplink.cfg");
 
 read(STDIN, my $data, $ENV{'CONTENT_LENGTH'});
 my @formfield = split(/&/, $data);
@@ -32,12 +32,12 @@ $navbar{1}{Name} = "Einstellungen";
 $navbar{1}{URL} = 'config.cgi';
 $navbar{1}{active} = 1;
  
-$navbar{2}{Name} = "MyUplinkAPI";
+$navbar{2}{Name} = "myuplinkAPI";
 $navbar{2}{URL} = 'index.cgi';
 
 
 my $version = LoxBerry::System::pluginversion();
-my $plugintitle = "MyUplinkUplink Bridge";
+my $plugintitle = "myuplinkUplink Bridge";
 LoxBerry::Web::lbheader("$plugintitle V$version", "http://www.loxwiki.eu/display/LOXBERRY/Any+Plugin", "help.html");
 
 my $template = HTML::Template->new(filename => "$lbptemplatedir/saveConfig.html");

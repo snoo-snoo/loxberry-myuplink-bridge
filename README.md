@@ -1,2 +1,2 @@
-# LoxBerry-Plugin-MyUplink-Gateway
+# LoxBerry-Plugin-myuplink-Gateway
 

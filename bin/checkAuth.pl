@@ -13,7 +13,7 @@ use LWP::Simple;
 
 my $log = LoxBerry::Log->new(name => 'checkAuth daemon',);
 
-LOGSTART("Communication Status Control MyUplink");
+LOGSTART("Communication Status Control myuplink");
 
 my $ua = LWP::UserAgent->new;
 my $isFaulty = 0;
@@ -22,8 +22,8 @@ while(1){
 	sleep(900);
 
 # Send a request to the index page from plugin. This page send a status request
-# to myUplink uplink.
-	my $response = $ua->get("http://localhost/plugins/MyUplink/?mode=raw");
+# to myuplink uplink.
+	my $response = $ua->get("http://localhost/plugins/myuplink/?mode=raw");
 # if response comes back with status code 200, we can go to sleep
 	if ($response->is_success) {
 			$isFaulty = 0;
@@ -37,11 +37,11 @@ while(1){
 	notify( $lbpplugindir,
 					"daemon",
 					"Your attantion is needed! ".
-					"There are problems with the connection to MyUplinkUplink! ".
+					"There are problems with the connection to myuplinkUplink! ".
 					"Server message: " . $response->status_line,
 					"error");
 
-	LOGERR "There are problems with the connection to MyUplinkUplink! ".
+	LOGERR "There are problems with the connection to myuplinkUplink! ".
 					"Server message: " . $response->status_line;
 
 # after we create a notify we set the fault-flag. So we know that a notification was
