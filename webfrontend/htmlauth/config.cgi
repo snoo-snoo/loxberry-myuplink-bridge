@@ -28,8 +28,8 @@ LoxBerry::Web::lbheader("$plugintitle V$version", "http://www.loxwiki.eu/display
 #Load Template and fill with given parameters
 my $template = HTML::Template->new(filename => "$lbptemplatedir/config.html");
 my $pcfg = new Config::Simple("$lbpconfigdir/nibe.cfg");
-$template->param("nibe_api_client_id" => $pcfg->param('Section.nibe_api_client_id'));
-$template->param("nibe_api_client_secret" => $pcfg->param('Section.nibe_api_client_secret'));
+$template->param("myuplink_api_client_id" => $pcfg->param('Section.myuplink_api_client_id'));
+$template->param("myuplink_api_client_secret" => $pcfg->param('Section.myuplink_api_client_secret'));
 $template->param("redirect_url" => $pcfg->param('Section.redirect_url'));
 
 # Write template

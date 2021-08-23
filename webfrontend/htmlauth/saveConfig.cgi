@@ -21,8 +21,8 @@ foreach $field (@formfield) {
   $form{$name} = $value;
  }
 
-$pcfg->param('Section.nibe_api_client_id', $form{nibe_api_client_id});
-$pcfg->param('Section.nibe_api_client_secret', $form{nibe_api_client_secret});
+$pcfg->param('Section.myuplink_api_client_id', $form{myuplink_api_client_id});
+$pcfg->param('Section.myuplink_api_client_secret', $form{myuplink_api_client_secret});
 $pcfg->param('Section.redirect_url', $form{redirect_url});
 
 $pcfg->save();
@@ -42,8 +42,8 @@ LoxBerry::Web::lbheader("$plugintitle V$version", "http://www.loxwiki.eu/display
 
 my $template = HTML::Template->new(filename => "$lbptemplatedir/saveConfig.html");
 # fill in some parameters
-$template->param("nibe_api_client_id" => $form{nibe_api_client_id});
-$template->param("nibe_api_client_secret" => $form{nibe_api_client_secret});
+$template->param("myuplink_api_client_id" => $form{myuplink_api_client_id});
+$template->param("myuplink_api_client_secret" => $form{myuplink_api_client_secret});
 $template->param("redirect_url" => $form{redirect_url});
 
 # Nun wird das Template ausgegeben.

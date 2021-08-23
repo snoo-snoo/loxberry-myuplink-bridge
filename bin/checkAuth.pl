@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 ##
-# Check the authorization to nibeuplink all 15 minutes
+# Check the authorization to myuplink all 15 minutes
 # If there no authorization a notification will be created.
 ##
 
@@ -13,7 +13,7 @@ use LWP::Simple;
 
 my $log = LoxBerry::Log->new(name => 'checkAuth daemon',);
 
-LOGSTART("Communication Status Control Nibe Uplink");
+LOGSTART("Communication Status Control MyUplink");
 
 my $ua = LWP::UserAgent->new;
 my $isFaulty = 0;
@@ -23,7 +23,7 @@ while(1){
 
 # Send a request to the index page from plugin. This page send a status request
 # to nibe uplink.
-	my $response = $ua->get("http://localhost/plugins/nibeuplink/?mode=raw");
+	my $response = $ua->get("http://localhost/plugins/myuplink/?mode=raw");
 # if response comes back with status code 200, we can go to sleep
 	if ($response->is_success) {
 			$isFaulty = 0;
