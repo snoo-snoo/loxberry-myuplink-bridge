@@ -15,7 +15,7 @@ class MyUplinkAPI {
 
 	function authorizationURL()
 	{
-		return "https://api.myuplink.com/oauth/authorize?client_id=" . $this->clientID . "&scope=" . $this->scopes . "&redirect_uri=" . $this->redirectURL . "&state=authorization";
+		return "https://api.myuplink.com/oauth/token?grant_type=client_credentials?&scope=" . $this->scopes . "&client_id=" . $this->clientID . "&client-secret=" . $this->clientSecret;
 	}
 
 	function authorize($CODE, $isRefresh = false)
@@ -29,7 +29,7 @@ class MyUplinkAPI {
 		else
 		{
 			$pf = "&code=" . urlencode($CODE) . "&redirect_uri=" . $this->redirectURL . "&scope=" . urlencode($this->scopes);
-			$grant_type = "authorization_code";
+			$grant_type = "client_credentials";
 		}
 		curl_setopt($ch, CURLOPT_URL,"https://api.myuplink.com/oauth/token");
 		curl_setopt($ch, CURLOPT_POST, 1);
